@@ -11,6 +11,8 @@
 #define PCOLS 78
 #endif
 
+#define FRAMES 8
+
 #define log(msg, ...) fprintf(stderr, msg, ##__VA_ARGS__);
 #define print_error(msg) fprintf(stderr, "Error: %s\n", msg);
 
@@ -18,5 +20,7 @@ typedef struct _coord {
     long x;
     long y;
 } Coord;
+
+long gettimestamp(void);
 
 #endif

@@ -47,24 +47,35 @@ int main(int argc, char **argv) {
     apple->y = 0;
     new_apple(apple, player);
 
+    long stime, etime, wtime;
     long score = 0;
     drawscore(0, "Begin the game. Use the arrow keys to move. Eat food to grow.");
     char playing = 1;
     int rval = 0;
     while(playing) {
+        stime = gettimestamp();
         switch(wgetch(playarea)) {
+            case 'h':
             case KEY_LEFT:
                 playerdir = LEFT;
                 break;
+
+            case 'j':
             case KEY_DOWN:
                 playerdir = DOWN;
                 break;
+
+            case 'k':
             case KEY_UP:
                 playerdir = UP;
                 break;
+
+            case 'l':
             case KEY_RIGHT:
                 playerdir = RIGHT;
                 break;
+
+            case 27:
             case 'q':
                 drawscore(score, "You quit.");
                 playing = 0;
@@ -95,7 +106,15 @@ int main(int argc, char **argv) {
         if(playing == 0) break;
 
         drawgame(player, apple, score);
-        usleep(125000);
+        etime = gettimestamp();
+        if(stime > etime) {
+            wtime = etime + 86400000000 - stime;
+        } else {
+            wtime = etime - stime;
+        }
+        if(1000000/FRAMES - wtime > 0) {
+            usleep((1000000/FRAMES) - wtime);
+        }
     }
 
     snake_cleanup(player);
