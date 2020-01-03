@@ -32,6 +32,7 @@ int main(int argc, char **argv) {
     new_apple(apple, player);
 
     long score = 0;
+    drawscore(0, "Begin the game. Use the arrow keys to move. Eat food to grow.");
     char playing = 1;
     while(playing) {
         switch(wgetch(playarea)) {
