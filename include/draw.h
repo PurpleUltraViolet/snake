@@ -6,7 +6,7 @@
 extern WINDOW *playarea;
 extern WINDOW *scorearea;
 
-WINDOW *init();
+WINDOW *init(void);
 
 void drawgame(Snake *, Coord *, long);
 
