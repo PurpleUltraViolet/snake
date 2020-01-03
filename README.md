@@ -6,4 +6,4 @@ This is a simple ncurses port of snake. I will (probably) not be maintaining it,
 
 ## How to play?
 
-Use the arrow keys to move, don't hit the walls, and don't hit yourself while eating apples (\*) to grow.
+Use the arrow keys or vim keys to move, don't hit the walls, and don't hit yourself while eating apples (\*) to grow.

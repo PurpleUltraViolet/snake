@@ -12,7 +12,7 @@
 WINDOW *playarea = NULL;
 WINDOW *scorearea = NULL;
 
-WINDOW *init() {
+WINDOW *init(void) {
     if(initscr() == NULL)
         return NULL;
     playarea = newwin(PROWS + 2, PCOLS + 2, 1, 0);
