@@ -1,6 +1,7 @@
 #ifndef DRAW_H_
 #define DRAW_H_
 
+#include <curses.h>
 #include "snake.h"
 
 extern WINDOW *playarea;
