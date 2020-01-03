@@ -63,8 +63,7 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 snake_delend(*so);
             } else {
                 (*score)++;
-                apple->x = rand() % PCOLS;
-                apple->y = rand() % PROWS;
+                new_apple(apple, *so);
             }
             rval = 0;
             break;
@@ -87,8 +86,7 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 snake_delend(*so);
             } else {
                 (*score)++;
-                apple->x = rand() % PCOLS;
-                apple->y = rand() % PROWS;
+                new_apple(apple, *so);
             }
             rval = 0;
             break;
@@ -111,8 +109,7 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 snake_delend(*so);
             } else {
                 (*score)++;
-                apple->x = rand() % PCOLS;
-                apple->y = rand() % PROWS;
+                new_apple(apple, *so);
             }
             rval = 0;
             break;
@@ -135,8 +132,7 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 snake_delend(*so);
             } else {
                 (*score)++;
-                apple->x = rand() % PCOLS;
-                apple->y = rand() % PROWS;
+                new_apple(apple, *so);
             }
             rval = 0;
             break;
@@ -148,5 +144,16 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
 void snake_cleanup(Snake *s) {
     while(snake_delend(s))
         continue;
+    return;
+}
+
+void new_apple(Coord *apple, Snake *s) {
+    long x, y;
+    do {
+        x = rand() % PCOLS;
+        y = rand() % PROWS;
+    } while(snake_checkifin(s, x, y));
+    apple->x = x;
+    apple->y = y;
     return;
 }

@@ -21,14 +21,15 @@ int main(int argc, char **argv) {
 
     Dir playerdir = RIGHT;
     Snake *player = malloc(sizeof(Snake));
-    player->loc.x = 3;
+    player->loc.x = 1;
     player->loc.y = 1;
     player->next = NULL;
 
     srand(time(NULL));
     Coord *apple = malloc(sizeof(apple));
-    apple->x = rand() % PCOLS;
-    apple->y = rand() % PROWS;
+    apple->x = 0;
+    apple->y = 0;
+    new_apple(apple, player);
 
     long score = 0;
     char playing = 1;

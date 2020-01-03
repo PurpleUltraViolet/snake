@@ -20,4 +20,6 @@ int snake_move(Snake **, Dir, long *, Coord *);
 
 void snake_cleanup(Snake *);
 
+void new_apple(Coord *, Snake *);
+
 #endif
