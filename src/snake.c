@@ -8,6 +8,9 @@ Snake *snake_add(Snake *so) {
         s = s->next;
     }
     Snake *r = malloc(sizeof(Snake));
+    if(r == NULL) {
+        return NULL;
+    }
     s->next = r;
     return r;
 }
@@ -55,6 +58,10 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 break;
             }
             s = malloc(sizeof(Snake));
+            if(s == NULL) {
+                rval = 3;
+                break;
+            }
             s->loc.x = (*so)->loc.x + 1;
             s->loc.y = (*so)->loc.y;
             s->next = *so;
@@ -78,6 +85,10 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 break;
             }
             s = malloc(sizeof(Snake));
+            if(s == NULL) {
+                rval = 3;
+                break;
+            }
             s->loc.x = (*so)->loc.x - 1;
             s->loc.y = (*so)->loc.y;
             s->next = *so;
@@ -101,6 +112,10 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 break;
             }
             s = malloc(sizeof(Snake));
+            if(s == NULL) {
+                rval = 3;
+                break;
+            }
             s->loc.x = (*so)->loc.x;
             s->loc.y = (*so)->loc.y + 1;
             s->next = *so;
@@ -124,6 +139,10 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
                 break;
             }
             s = malloc(sizeof(Snake));
+            if(s == NULL) {
+                rval = 3;
+                break;
+            }
             s->loc.x = (*so)->loc.x;
             s->loc.y = (*so)->loc.y - 1;
             s->next = *so;

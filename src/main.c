@@ -21,12 +21,28 @@ int main(int argc, char **argv) {
 
     Dir playerdir = RIGHT;
     Snake *player = malloc(sizeof(Snake));
+    if(player == NULL) {
+        endwin();
+        print_error("Error allocating memory.");
+        return 2;
+    }
     player->loc.x = 1;
     player->loc.y = 1;
     player->next = NULL;
+    if(snake_add(player) == NULL) {
+        endwin();
+        print_error("Error allocating memory.");
+        return 2;
+    }
 
     srand(time(NULL));
     Coord *apple = malloc(sizeof(apple));
+    if(apple == NULL) {
+        endwin();
+        free(player);
+        print_error("Error allocating memory.");
+        return 2;
+    }
     apple->x = 0;
     apple->y = 0;
     new_apple(apple, player);
@@ -34,6 +50,7 @@ int main(int argc, char **argv) {
     long score = 0;
     drawscore(0, "Begin the game. Use the arrow keys to move. Eat food to grow.");
     char playing = 1;
+    int rval = 0;
     while(playing) {
         switch(wgetch(playarea)) {
             case KEY_LEFT:
@@ -66,6 +83,14 @@ int main(int argc, char **argv) {
                 drawscore(score, "You hit yourself.");
                 playing = 0;
                 break;
+            case 3:
+                endwin();
+                free(player);
+                free(apple);
+                print_error("Error allocating memory.");
+                rval = 2;
+                playing = 0;
+                break;
         }
         if(playing == 0) break;
 
@@ -76,5 +101,5 @@ int main(int argc, char **argv) {
     snake_cleanup(player);
     free(apple);
     endwin();
-    return 0;
+    return rval;
 }
