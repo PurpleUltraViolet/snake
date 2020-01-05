@@ -57,22 +57,26 @@ int main(int argc, char **argv) {
         switch(wgetch(playarea)) {
             case 'h':
             case KEY_LEFT:
-                playerdir = LEFT;
+                if(playerdir != RIGHT)
+                    playerdir = LEFT;
                 break;
 
             case 'j':
             case KEY_DOWN:
-                playerdir = DOWN;
+                if(playerdir != UP)
+                    playerdir = DOWN;
                 break;
 
             case 'k':
             case KEY_UP:
-                playerdir = UP;
+                if(playerdir != DOWN)
+                    playerdir = UP;
                 break;
 
             case 'l':
             case KEY_RIGHT:
-                playerdir = RIGHT;
+                if(playerdir != LEFT)
+                    playerdir = RIGHT;
                 break;
 
             case 27:
