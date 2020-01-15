@@ -11,7 +11,7 @@
 #define PCOLS 78
 #endif
 
-#define FRAMES 8
+#define FRAMES 12
 
 #define log(msg, ...) fprintf(stderr, msg, ##__VA_ARGS__);
 #define print_error(msg) fprintf(stderr, "Error: %s\n", msg);
