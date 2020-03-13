@@ -4,11 +4,11 @@
 #include <stdio.h>
 
 #ifndef PROWS
-#define PROWS 21
+#define PROWS 50
 #endif
 
 #ifndef PCOLS
-#define PCOLS 78
+#define PCOLS 50
 #endif
 
 #define FRAMES 12

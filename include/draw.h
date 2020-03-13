@@ -1,16 +1,21 @@
 #ifndef DRAW_H_
 #define DRAW_H_
 
-#include <curses.h>
+#include <SDL2/SDL.h>
 #include "snake.h"
 
-extern WINDOW *playarea;
-extern WINDOW *scorearea;
+#define SQUARE_SIZE 10
+#define SQUARE_GAP 2
 
-WINDOW *init(void);
+extern SDL_Window *win;
+extern SDL_Surface *screen;
+
+SDL_Surface *init(void);
 
 void drawgame(Snake *, Coord *, long);
 
 void drawscore(long, char *);
+
+void cleanup(void);
 
 #endif
