@@ -95,15 +95,15 @@ src/draw.o: /usr/include/SDL2/SDL_quit.h /usr/include/SDL2/SDL_gesture.h
 src/draw.o: /usr/include/SDL2/SDL_touch.h /usr/include/SDL2/SDL_filesystem.h
 src/draw.o: /usr/include/SDL2/SDL_haptic.h /usr/include/SDL2/SDL_hints.h
 src/draw.o: /usr/include/SDL2/SDL_loadso.h /usr/include/SDL2/SDL_log.h
-src/draw.o: /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_power.h
-src/draw.o: /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_sensor.h
-src/draw.o: /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h
-src/draw.o: /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h
-src/draw.o: /usr/include/unistd.h /usr/include/bits/posix_opt.h
-src/draw.o: /usr/include/bits/environments.h /usr/include/bits/confname.h
-src/draw.o: /usr/include/bits/getopt_posix.h /usr/include/bits/getopt_core.h
-src/draw.o: /usr/include/bits/unistd_ext.h include/util.h include/snake.h
-src/draw.o: include/draw.h
+src/draw.o: /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_metal.h
+src/draw.o: /usr/include/SDL2/SDL_power.h /usr/include/SDL2/SDL_render.h
+src/draw.o: /usr/include/SDL2/SDL_sensor.h /usr/include/SDL2/SDL_shape.h
+src/draw.o: /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h
+src/draw.o: /usr/include/SDL2/SDL_version.h /usr/include/unistd.h
+src/draw.o: /usr/include/bits/posix_opt.h /usr/include/bits/environments.h
+src/draw.o: /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h
+src/draw.o: /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h
+src/draw.o: include/util.h include/snake.h include/draw.h
 src/main.o: /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h
 src/main.o: /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h
 src/main.o: /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h
@@ -171,12 +171,12 @@ src/main.o: /usr/include/SDL2/SDL_quit.h /usr/include/SDL2/SDL_gesture.h
 src/main.o: /usr/include/SDL2/SDL_touch.h /usr/include/SDL2/SDL_filesystem.h
 src/main.o: /usr/include/SDL2/SDL_haptic.h /usr/include/SDL2/SDL_hints.h
 src/main.o: /usr/include/SDL2/SDL_loadso.h /usr/include/SDL2/SDL_log.h
-src/main.o: /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_power.h
-src/main.o: /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_sensor.h
-src/main.o: /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h
-src/main.o: /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h
-src/main.o: /usr/include/time.h /usr/include/bits/time.h
-src/main.o: /usr/include/bits/types/struct_tm.h
+src/main.o: /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_metal.h
+src/main.o: /usr/include/SDL2/SDL_power.h /usr/include/SDL2/SDL_render.h
+src/main.o: /usr/include/SDL2/SDL_sensor.h /usr/include/SDL2/SDL_shape.h
+src/main.o: /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h
+src/main.o: /usr/include/SDL2/SDL_version.h /usr/include/time.h
+src/main.o: /usr/include/bits/time.h /usr/include/bits/types/struct_tm.h
 src/main.o: /usr/include/bits/types/struct_itimerspec.h /usr/include/unistd.h
 src/main.o: /usr/include/bits/posix_opt.h /usr/include/bits/environments.h
 src/main.o: /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h

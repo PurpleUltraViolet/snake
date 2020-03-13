@@ -44,7 +44,7 @@ char snake_checkifin(Snake *so, long x, long y) {
     return rval;
 }
 
-int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
+int snake_move(Snake **so, Dir dir, Coord *apple) {
     int rval;
     Snake *s;
     switch(dir) {
@@ -69,7 +69,6 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
             if(s->loc.x != apple->x || s->loc.y != apple->y) {
                 snake_delend(*so);
             } else {
-                (*score)++;
                 new_apple(apple, *so);
             }
             rval = 0;
@@ -96,7 +95,6 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
             if(s->loc.x != apple->x || s->loc.y != apple->y) {
                 snake_delend(*so);
             } else {
-                (*score)++;
                 new_apple(apple, *so);
             }
             rval = 0;
@@ -123,7 +121,6 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
             if(s->loc.x != apple->x || s->loc.y != apple->y) {
                 snake_delend(*so);
             } else {
-                (*score)++;
                 new_apple(apple, *so);
             }
             rval = 0;
@@ -150,7 +147,6 @@ int snake_move(Snake **so, Dir dir, long *score, Coord *apple) {
             if(s->loc.x != apple->x || s->loc.y != apple->y) {
                 snake_delend(*so);
             } else {
-                (*score)++;
                 new_apple(apple, *so);
             }
             rval = 0;

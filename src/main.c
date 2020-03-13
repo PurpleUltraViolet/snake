@@ -42,7 +42,6 @@ int main(int argc, char **argv) {
 
     Dir odir;
     long stime, etime, wtime;
-    long score = 0;
     char playing = 1;
     int rval = 0;
     SDL_Event event;
@@ -77,7 +76,7 @@ int main(int argc, char **argv) {
                     break;
                 case SDL_QUIT:
                     cleanup();
-                    drawscore(score, "You quit.");
+                    drawend("You quit.");
                     playing = 0;
                     break;
                 default:
@@ -86,15 +85,15 @@ int main(int argc, char **argv) {
         }
         if(playing == 0) break;
 
-        switch(snake_move(&player, playerdir, &score, apple)) {
+        switch(snake_move(&player, playerdir, apple)) {
             case 1:
                 cleanup();
-                drawscore(score, "You hit a wall.");
+                drawend("You hit a wall.");
                 playing = 0;
                 break;
             case 2:
                 cleanup();
-                drawscore(score, "You hit yourself.");
+                drawend("You hit yourself.");
                 playing = 0;
                 break;
             case 3:
@@ -108,7 +107,7 @@ int main(int argc, char **argv) {
         }
         if(playing == 0) break;
 
-        drawgame(player, apple, score);
+        drawgame(player, apple);
         etime = gettimestamp();
         if(stime > etime) {
             wtime = etime + 86400000000 - stime;
