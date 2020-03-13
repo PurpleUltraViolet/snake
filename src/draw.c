@@ -1,73 +1,70 @@
-#include <curses.h>
+#include <SDL2/SDL.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "util.h"
 #include "snake.h"
 #include "draw.h"
 
-#define S_HEAD '%'
-#define S_BODY '#'
-#define APPLE '*'
+SDL_Window *win = NULL;
+SDL_Surface *screen = NULL;
 
-WINDOW *playarea = NULL;
-WINDOW *scorearea = NULL;
+SDL_Surface *init(void) {
+    if(SDL_Init(SDL_INIT_VIDEO)) {
+        print_error("Init failed\n");
+        return NULL;
+    }
 
-WINDOW *init(void) {
-    if(initscr() == NULL)
+    win = SDL_CreateWindow("Snake",
+                           SDL_WINDOWPOS_CENTERED,
+                           SDL_WINDOWPOS_CENTERED,
+                           SQUARE_SIZE * PCOLS + SQUARE_GAP * (PCOLS - 1),
+                           SQUARE_SIZE * PROWS + SQUARE_GAP * (PROWS - 1),
+                           0);
+    if(!win) {
+        print_error("Window creation failed\n");
         return NULL;
-    playarea = newwin(PROWS + 2, PCOLS + 2, 1, 0);
-    if(playarea == NULL)
+    }
+
+    screen = SDL_GetWindowSurface(win);
+    if(!screen) {
+        print_error("Surface creation failed\n");
+        SDL_DestroyWindow(win);
         return NULL;
-    scorearea = newwin(1, PCOLS + 2, 0, 0);
-    cbreak();
-    noecho();
-    keypad(playarea, TRUE);
-    nodelay(playarea, TRUE);
-    curs_set(0);
-    return stdscr;
+    }
+
+    return screen;
 }
 
 void drawgame(Snake *head, Coord *apple_ptr, long score) {
-    werase(playarea);
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
-    /* Draw score */
-    mvwprintw(scorearea, 0, 0, "Score: %lu", score);
+    SDL_Rect square = {.x = 0, .y = 0, .w = SQUARE_SIZE, .h = SQUARE_SIZE};
 
-    /* Draw boundaries */
-    wborder(playarea, 0, 0, 0, 0, 0, 0, 0, 0);
-    touchwin(playarea);
-
-    /* Draw snake */
     Snake *p = head;
-    mvwaddch(playarea, p->loc.y + 1, p->loc.x + 1, S_HEAD);
+    square.x = p->loc.x * SQUARE_SIZE + p->loc.x * SQUARE_GAP;
+    square.y = p->loc.y * SQUARE_SIZE + p->loc.y * SQUARE_GAP;
+    SDL_FillRect(screen, &square, SDL_MapRGB(screen->format, 0, 255, 0));
     p = p->next;
     while(p != NULL) {
-        mvwaddch(playarea, p->loc.y + 1, p->loc.x + 1, S_BODY);
+        square.x = p->loc.x * SQUARE_SIZE + p->loc.x * SQUARE_GAP;
+        square.y = p->loc.y * SQUARE_SIZE + p->loc.y * SQUARE_GAP;
+        SDL_FillRect(screen, &square, SDL_MapRGB(screen->format, 0, 127, 0));
         p = p->next;
     }
 
-    /* Draw apple */
-    mvwaddch(playarea, apple_ptr->y + 1, apple_ptr->x + 1, APPLE);
+    square.x = apple_ptr->x * SQUARE_SIZE + apple_ptr->x * SQUARE_GAP;
+    square.y = apple_ptr->y * SQUARE_SIZE + apple_ptr->y * SQUARE_GAP;
+    SDL_FillRect(screen, &square, SDL_MapRGB(screen->format, 255, 0, 0));
 
-    wrefresh(playarea);
-    wrefresh(scorearea);
+    SDL_UpdateWindowSurface(win);
 
     return;
 }
 
 void drawscore(long score, char *msg) {
-    werase(playarea);
-    mvwprintw(scorearea, 0, 0, "Score: %lu", score);
-    wrefresh(scorearea);
-    mvwprintw(playarea, 0, 0, msg);
-    wrefresh(playarea);
+    printf("Score: %lu\n%s\n", score, msg);
+}
 
-    usleep(1000000);
-
-    while(wgetch(playarea) != ERR) continue;
-    mvwprintw(playarea, 2, 0, "Press any key to continue...");
-    wrefresh(playarea);
-    nodelay(playarea, FALSE);
-    wgetch(playarea);
-    nodelay(playarea, TRUE);
+void cleanup(void) {
+    SDL_DestroyWindow(win);
 }

@@ -1,5 +1,5 @@
+#include <SDL2/SDL.h>
 #include <stdio.h>
-#include <curses.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
@@ -12,17 +12,10 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if(LINES < PROWS + 3 || COLS < PCOLS + 2) {
-        endwin();
-        print_error("Terminal too small.");
-        printf("%d %d\n", LINES, COLS);
-        return 1;
-    }
-
     Dir playerdir = RIGHT;
     Snake *player = malloc(sizeof(Snake));
     if(player == NULL) {
-        endwin();
+        cleanup();
         print_error("Error allocating memory.");
         return 2;
     }
@@ -30,7 +23,7 @@ int main(int argc, char **argv) {
     player->loc.y = 1;
     player->next = NULL;
     if(snake_add(player) == NULL) {
-        endwin();
+        cleanup();
         print_error("Error allocating memory.");
         return 2;
     }
@@ -38,7 +31,7 @@ int main(int argc, char **argv) {
     srand(time(NULL));
     Coord *apple = malloc(sizeof(apple));
     if(apple == NULL) {
-        endwin();
+        cleanup();
         free(player);
         print_error("Error allocating memory.");
         return 2;
@@ -47,59 +40,65 @@ int main(int argc, char **argv) {
     apple->y = 0;
     new_apple(apple, player);
 
+    Dir odir;
     long stime, etime, wtime;
     long score = 0;
-    drawscore(0, "Begin the game. Use the arrow keys or vim keys to move. Eat food to grow.");
     char playing = 1;
     int rval = 0;
+    SDL_Event event;
     while(playing) {
         stime = gettimestamp();
-        switch(wgetch(playarea)) {
-            case 'h':
-            case KEY_LEFT:
-                if(playerdir != RIGHT)
-                    playerdir = LEFT;
-                break;
-
-            case 'j':
-            case KEY_DOWN:
-                if(playerdir != UP)
-                    playerdir = DOWN;
-                break;
-
-            case 'k':
-            case KEY_UP:
-                if(playerdir != DOWN)
-                    playerdir = UP;
-                break;
-
-            case 'l':
-            case KEY_RIGHT:
-                if(playerdir != LEFT)
-                    playerdir = RIGHT;
-                break;
-
-            case 27:
-            case 'q':
-                drawscore(score, "You quit.");
-                playing = 0;
-                break;
-            default:
-                break;
+        odir = playerdir;
+        while(SDL_PollEvent(&event)) {
+            switch(event.type) {
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym) {
+                        case SDLK_k:
+                        case SDLK_UP:
+                            if(odir != DOWN)
+                                playerdir = UP;
+                            break;
+                        case SDLK_j:
+                        case SDLK_DOWN:
+                            if(odir != UP)
+                                playerdir = DOWN;
+                            break;
+                        case SDLK_h:
+                        case SDLK_LEFT:
+                            if(odir != RIGHT)
+                                playerdir = LEFT;
+                            break;
+                        case SDLK_l:
+                        case SDLK_RIGHT:
+                            if(odir != LEFT)
+                                playerdir = RIGHT;
+                            break;
+                        }
+                    break;
+                case SDL_QUIT:
+                    cleanup();
+                    drawscore(score, "You quit.");
+                    playing = 0;
+                    break;
+                default:
+                    break;
+            }
         }
         if(playing == 0) break;
 
         switch(snake_move(&player, playerdir, &score, apple)) {
             case 1:
+                cleanup();
                 drawscore(score, "You hit a wall.");
                 playing = 0;
                 break;
             case 2:
+                cleanup();
                 drawscore(score, "You hit yourself.");
                 playing = 0;
                 break;
             case 3:
-                endwin();
+                cleanup();
                 free(player);
                 free(apple);
                 print_error("Error allocating memory.");
@@ -123,6 +122,5 @@ int main(int argc, char **argv) {
 
     snake_cleanup(player);
     free(apple);
-    endwin();
     return rval;
 }
