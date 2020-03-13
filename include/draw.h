@@ -12,9 +12,9 @@ extern SDL_Surface *screen;
 
 SDL_Surface *init(void);
 
-void drawgame(Snake *, Coord *, long);
+void drawgame(Snake *, Coord *);
 
-void drawscore(long, char *);
+void drawend(char *);
 
 void cleanup(void);
 

@@ -16,7 +16,7 @@ int snake_delend(Snake *);
 
 char snake_checkifin(Snake *, long, long);
 
-int snake_move(Snake **, Dir, long *, Coord *);
+int snake_move(Snake **, Dir, Coord *);
 
 void snake_cleanup(Snake *);
 

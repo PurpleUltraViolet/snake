@@ -35,7 +35,7 @@ SDL_Surface *init(void) {
     return screen;
 }
 
-void drawgame(Snake *head, Coord *apple_ptr, long score) {
+void drawgame(Snake *head, Coord *apple_ptr) {
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     SDL_Rect square = {.x = 0, .y = 0, .w = SQUARE_SIZE, .h = SQUARE_SIZE};
@@ -61,8 +61,8 @@ void drawgame(Snake *head, Coord *apple_ptr, long score) {
     return;
 }
 
-void drawscore(long score, char *msg) {
-    printf("Score: %lu\n%s\n", score, msg);
+void drawend(char *msg) {
+    printf("%s\n", msg);
 }
 
 void cleanup(void) {
