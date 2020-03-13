@@ -69,15 +69,21 @@ int snake_move(Snake **so, Dir dir, Coord *apple) {
             break;
     }
 
-    if(ny < 0)
-        return 1;
+    if(nx < 0)
+        nx = PCOLS - 1;
+    else if(nx >= PCOLS)
+        nx = 0;
+    else if(ny < 0)
+        ny = PROWS - 1;
+    else if(ny >= PROWS)
+        ny = 0;
 
     if(snake_checkifin(*so, nx, ny))
-        return 2;
+        return 1;
 
     s = malloc(sizeof(Snake));
     if(s == NULL)
-        return 3;
+        return 2;
 
     s->loc.x = nx;
     s->loc.y = ny;

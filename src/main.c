@@ -88,18 +88,11 @@ int main(int argc, char **argv) {
         switch(snake_move(&player, playerdir, apple)) {
             case 1:
                 cleanup();
-                drawend("You hit a wall.");
+                drawend("You hit yourself.");
                 playing = 0;
                 break;
             case 2:
                 cleanup();
-                drawend("You hit yourself.");
-                playing = 0;
-                break;
-            case 3:
-                cleanup();
-                free(player);
-                free(apple);
                 print_error("Error allocating memory.");
                 rval = 2;
                 playing = 0;
