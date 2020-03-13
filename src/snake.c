@@ -45,115 +45,50 @@ char snake_checkifin(Snake *so, long x, long y) {
 }
 
 int snake_move(Snake **so, Dir dir, Coord *apple) {
-    int rval;
+    int nx, ny;
     Snake *s;
     switch(dir) {
         case RIGHT:
-            if((*so)->loc.x + 1 >= PCOLS) {
-                rval = 1;
-                break;
-            }
-            if(snake_checkifin(*so, (*so)->loc.x + 1, (*so)->loc.y)) {
-                rval = 2;
-                break;
-            }
-            s = malloc(sizeof(Snake));
-            if(s == NULL) {
-                rval = 3;
-                break;
-            }
-            s->loc.x = (*so)->loc.x + 1;
-            s->loc.y = (*so)->loc.y;
-            s->next = *so;
-            *so = s;
-            if(s->loc.x != apple->x || s->loc.y != apple->y) {
-                snake_delend(*so);
-            } else {
-                new_apple(apple, *so);
-            }
-            rval = 0;
+            nx = (*so)->loc.x + 1;
+            ny = (*so)->loc.y;
             break;
 
         case LEFT:
-            if((*so)->loc.x - 1 < 0) {
-                rval = 1;
-                break;
-            }
-            if(snake_checkifin(*so, (*so)->loc.x - 1, (*so)->loc.y)) {
-                rval = 2;
-                break;
-            }
-            s = malloc(sizeof(Snake));
-            if(s == NULL) {
-                rval = 3;
-                break;
-            }
-            s->loc.x = (*so)->loc.x - 1;
-            s->loc.y = (*so)->loc.y;
-            s->next = *so;
-            *so = s;
-            if(s->loc.x != apple->x || s->loc.y != apple->y) {
-                snake_delend(*so);
-            } else {
-                new_apple(apple, *so);
-            }
-            rval = 0;
+            nx = (*so)->loc.x - 1;
+            ny = (*so)->loc.y;
             break;
 
         case DOWN:
-            if((*so)->loc.y + 1 >= PROWS) {
-                rval = 1;
-                break;
-            }
-            if(snake_checkifin(*so, (*so)->loc.x, (*so)->loc.y + 1)) {
-                rval = 2;
-                break;
-            }
-            s = malloc(sizeof(Snake));
-            if(s == NULL) {
-                rval = 3;
-                break;
-            }
-            s->loc.x = (*so)->loc.x;
-            s->loc.y = (*so)->loc.y + 1;
-            s->next = *so;
-            *so = s;
-            if(s->loc.x != apple->x || s->loc.y != apple->y) {
-                snake_delend(*so);
-            } else {
-                new_apple(apple, *so);
-            }
-            rval = 0;
+            nx = (*so)->loc.x;
+            ny = (*so)->loc.y + 1;
             break;
 
         case UP:
-            if((*so)->loc.y - 1 < 0) {
-                rval = 1;
-                break;
-            }
-            if(snake_checkifin(*so, (*so)->loc.x, (*so)->loc.y - 1)) {
-                rval = 2;
-                break;
-            }
-            s = malloc(sizeof(Snake));
-            if(s == NULL) {
-                rval = 3;
-                break;
-            }
-            s->loc.x = (*so)->loc.x;
-            s->loc.y = (*so)->loc.y - 1;
-            s->next = *so;
-            *so = s;
-            if(s->loc.x != apple->x || s->loc.y != apple->y) {
-                snake_delend(*so);
-            } else {
-                new_apple(apple, *so);
-            }
-            rval = 0;
+            nx = (*so)->loc.x;
+            ny = (*so)->loc.y - 1;
             break;
     }
 
-    return rval;
+    if(ny < 0)
+        return 1;
+
+    if(snake_checkifin(*so, nx, ny))
+        return 2;
+
+    s = malloc(sizeof(Snake));
+    if(s == NULL)
+        return 3;
+
+    s->loc.x = nx;
+    s->loc.y = ny;
+    s->next = *so;
+    *so = s;
+    if(s->loc.x != apple->x || s->loc.y != apple->y)
+        snake_delend(*so);
+    else
+        new_apple(apple, *so);
+
+    return 0;
 }
 
 void snake_cleanup(Snake *s) {
