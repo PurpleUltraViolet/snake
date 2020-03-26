@@ -66,5 +66,6 @@ void drawend(char *msg) {
 }
 
 void cleanup(void) {
+    SDL_FreeSurface(screen);
     SDL_DestroyWindow(win);
 }
