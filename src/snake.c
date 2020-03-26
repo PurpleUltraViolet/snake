@@ -8,9 +8,11 @@ Snake *snake_add(Snake *so) {
         s = s->next;
     }
     Snake *r = malloc(sizeof(Snake));
-    if(r == NULL) {
+    if(r == NULL)
         return NULL;
-    }
+    r->loc.x = s->loc.x;
+    r->loc.y = s->loc.y;
+    r->next = NULL;
     s->next = r;
     return r;
 }

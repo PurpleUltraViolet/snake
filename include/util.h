@@ -21,6 +21,4 @@ typedef struct _coord {
     long y;
 } Coord;
 
-long gettimestamp(void);
-
 #endif

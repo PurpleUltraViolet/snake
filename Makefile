@@ -1,12 +1,12 @@
-CC = gcc
+CC = x86_64-w64-mingw32-gcc
 MKDIR = mkdir -p
 SRC = src
 BUILD = build
 BIN = bin
 TARGET = $(BIN)/snake
-CFLAGS = -Wall -Wpedantic -Werror
+CFLAGS = -Wall -Wpedantic -Werror -I/usr/x86_64-w64-mingw32/include/SDL2 -Dmain=SDL_main
 INCLUDE = include
-LIB = -lSDL2
+LIB = -L/usr/x86_64-w64-mingw32/lib -lmingw32 -lSDL2main -lSDL2 -mwindows -Wl,--no-undefined -Wl,--dynamicbase -Wl,--nxcompat -Wl,--high-entropy-va -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid -static-libgcc -static
 
 $(TARGET) : $(patsubst $(SRC)/%.c, $(BUILD)/%.o, $(wildcard $(SRC)/*))
 	@$(MKDIR) $(BIN)
@@ -215,23 +215,3 @@ src/snake.o: /usr/include/bits/types/__FILE.h /usr/include/bits/types/FILE.h
 src/snake.o: /usr/include/bits/types/struct_FILE.h
 src/snake.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
 src/snake.o: include/snake.h
-src/util.o: /usr/include/sys/time.h /usr/include/features.h
-src/util.o: /usr/include/stdc-predef.h /usr/include/sys/cdefs.h
-src/util.o: /usr/include/bits/wordsize.h /usr/include/bits/long-double.h
-src/util.o: /usr/include/gnu/stubs.h /usr/include/bits/types.h
-src/util.o: /usr/include/bits/timesize.h /usr/include/bits/typesizes.h
-src/util.o: /usr/include/bits/time64.h /usr/include/bits/types/time_t.h
-src/util.o: /usr/include/bits/types/struct_timeval.h
-src/util.o: /usr/include/sys/select.h /usr/include/bits/select.h
-src/util.o: /usr/include/bits/types/sigset_t.h
-src/util.o: /usr/include/bits/types/__sigset_t.h
-src/util.o: /usr/include/bits/types/struct_timespec.h
-src/util.o: /usr/include/bits/endian.h /usr/include/bits/endianness.h
-src/util.o: include/util.h /usr/include/stdio.h
-src/util.o: /usr/include/bits/libc-header-start.h
-src/util.o: /usr/include/bits/types/__fpos_t.h
-src/util.o: /usr/include/bits/types/__mbstate_t.h
-src/util.o: /usr/include/bits/types/__fpos64_t.h
-src/util.o: /usr/include/bits/types/__FILE.h /usr/include/bits/types/FILE.h
-src/util.o: /usr/include/bits/types/struct_FILE.h
-src/util.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h

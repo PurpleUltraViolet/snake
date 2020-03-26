@@ -40,13 +40,14 @@ int main(int argc, char **argv) {
     apple->y = 0;
     new_apple(apple, player);
 
+
     Dir odir;
-    long stime, etime, wtime;
+    long stime;
     char playing = 1;
     int rval = 0;
     SDL_Event event;
     while(playing) {
-        stime = gettimestamp();
+        stime = SDL_GetTicks();
         odir = playerdir;
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
@@ -101,15 +102,8 @@ int main(int argc, char **argv) {
         if(playing == 0) break;
 
         drawgame(player, apple);
-        etime = gettimestamp();
-        if(stime > etime) {
-            wtime = etime + 86400000000 - stime;
-        } else {
-            wtime = etime - stime;
-        }
-        if(1000000/FRAMES - wtime > 0) {
-            usleep((1000000/FRAMES) - wtime);
-        }
+
+        SDL_Delay((1000/FRAMES) - (SDL_GetTicks() - stime));
     }
 
     snake_cleanup(player);
